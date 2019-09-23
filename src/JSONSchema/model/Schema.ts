@@ -4,7 +4,7 @@ import { string } from "prop-types";
 
 
 interface Extra {
-    defualt: any;
+    default: any;
     help: string;
     related_model: string;
     choices?: Choice[]
@@ -17,7 +17,8 @@ export enum Widget {
     datetime = "datetime",
     foreignkey = "foreignkey",
     unknown = "unknown",
-    select = "select"
+    select = "select",
+    tomanyTable = "tomany-table"
 }
 
 interface Validation {
@@ -72,10 +73,10 @@ export class SchemaList {
         this.schemaList = schemas;
     }
 
-    merge(values: Map<string, any>) {
+    merge(values: { [key: string]: any }) {
         this.schemaList = this.schemaList.map((s) => {
-            if (values.has(s.name)) {
-                let value = values.get(s.name);
+            if (values[s.name]) {
+                let value = values[s.name];
                 if (s.widget == Widget.select) {
                     let choice: Choice | undefined = s.extra
                         && s.extra.choices

@@ -24,7 +24,7 @@ export class FieldAction extends BaseExtra<FieldAction>{
         this.actionDone = d;
     }
 
-    merge(schemas: Schema[], values: FieldAction[]): Schema[] {
+    static merge(schemas: Schema[], values: FieldAction[]): Schema[] {
         return schemas.map((s) => {
             values.forEach((f) => {
                 if (f.schemaName == s.name) {
